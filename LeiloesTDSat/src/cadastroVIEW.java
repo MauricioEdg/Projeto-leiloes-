@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Adm
+ * @author mauricio
  */
 public class cadastroVIEW extends javax.swing.JFrame {
 
@@ -48,12 +46,6 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Valor:");
-
-        cadastroNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroNomeActionPerformed(evt);
-            }
-        });
 
         btnCadastrar.setBackground(new java.awt.Color(153, 255, 255));
         btnCadastrar.setText("Cadastrar");
@@ -134,27 +126,45 @@ public class cadastroVIEW extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
-        
-        
-    }//GEN-LAST:event_cadastroNomeActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
+        // Captura os dados preenchidos nos campos
         String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
+        String valorStr = cadastroValor.getText();
+
+        // Verifica se os campos não estão vazios
+        if (nome.isEmpty() || valorStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+            return;
+        }
+
+        // Converte o valor para Double
+        double valor = 0;
+        try {
+            valor = Double.parseDouble(valorStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor inválido.");
+            return;
+        }
+
+        // Cria o objeto ProdutosDTO com os dados do formulário
+        ProdutosDTO produto = new ProdutosDTO();
         produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
+        produto.setValor(valor);
+
+        // Cria uma instância do DAO para salvar o produto
+        ProdutosDAO dao = new ProdutosDAO();
+        boolean sucesso = dao.salvarProduto(produto);
+
+        // Exibe a mensagem de sucesso ou erro
+        if (sucesso) {
+            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar produto.");
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
-        listagemVIEW listagem = new listagemVIEW(); 
+        listagemVIEW listagem = new listagemVIEW();
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
 

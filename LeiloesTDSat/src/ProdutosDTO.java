@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
 /**
  *
- * @author Adm
+ * @author Mauricio
  */
 public class ProdutosDTO {
     private Integer id;
     private String nome;
-    private Integer valor;
+    private double valor;
     private String status;
 
     public Integer getId() {
@@ -21,7 +18,7 @@ public class ProdutosDTO {
         return nome;
     }
 
-    public Integer getValor() {
+    public double getValor() {
         return valor;
     }
 
@@ -37,7 +34,7 @@ public class ProdutosDTO {
         this.nome = nome;
     }
 
-    public void setValor(Integer valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
