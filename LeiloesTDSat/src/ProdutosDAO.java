@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.List;
 
 public class ProdutosDAO {
 
@@ -33,9 +35,27 @@ public class ProdutosDAO {
 
     }
 
-    public ArrayList<ProdutosDTO> listarProdutos() {
+    public List<ProdutosDTO> listarProdutos() {
+    List<ProdutosDTO> listaProdutos = new ArrayList<>();
+    String sql = "SELECT * FROM produtos";
 
-        return listagem;
+    try (Connection conn = new conectaDAO().connectDB();
+         PreparedStatement prep = conn.prepareStatement(sql);
+         ResultSet rs = prep.executeQuery()) {
+
+        while (rs.next()) {
+            ProdutosDTO produto = new ProdutosDTO();
+            produto.setId(rs.getInt("id"));
+            produto.setNome(rs.getString("nome"));
+            produto.setValor(rs.getDouble("valor"));
+            produto.setStatus(rs.getString("status"));
+
+            listaProdutos.add(produto);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
 
+    return listaProdutos;
+}
 }
