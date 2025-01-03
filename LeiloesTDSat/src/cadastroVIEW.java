@@ -150,6 +150,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDTO produto = new ProdutosDTO();
         produto.setNome(nome);
         produto.setValor(valor);
+        produto.setStatus("A venda");
 
         // Cria uma instância do DAO para salvar o produto
         ProdutosDAO dao = new ProdutosDAO();

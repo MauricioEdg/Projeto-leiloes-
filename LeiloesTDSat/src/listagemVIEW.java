@@ -1,5 +1,6 @@
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -148,16 +149,27 @@ public class listagemVIEW extends javax.swing.JFrame {
     }
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
-
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por gentileza, insira o id do produto");
+            return;
+        }
+        int idProduto = Integer.parseInt(id);
         ProdutosDAO produtosdao = new ProdutosDAO();
+        boolean deuCerto = produtosdao.venderProduto(idProduto);
 
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        preencherTabela();
+        if (deuCerto) {
+            JOptionPane.showMessageDialog(this, "Produto vendido");
+            preencherTabela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao vender o produto");
+        }
+
+
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        vendasVIEW vendas = new vendasVIEW();
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
