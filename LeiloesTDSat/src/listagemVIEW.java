@@ -164,7 +164,6 @@ public class listagemVIEW extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao vender o produto");
         }
 
-
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
